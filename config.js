@@ -1,6 +1,4 @@
-// Frontend settings
-// - apiBase should point to your backend (Cloudflare Worker). If you use Netlify redirects, keep it as "/api".
 window.APP_CONFIG = {
   apiBase: "https://galaxysmm.galaxysmm.workers.dev",
-  adminEmail: "admin@example.com"
+  adminEmail: "imabdullahbhai@gmail.com"
 };
