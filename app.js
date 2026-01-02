@@ -13,6 +13,32 @@ function toast(msg){
   el.classList.add("show");
   setTimeout(()=>el.classList.remove("show"), 2600);
 }
+
+// HTML escaping helpers (used by admin.html + panel.html)
+// Fixes: "ReferenceError: escapeHtml is not defined" which leaves tables stuck on "Loading…"
+function escapeHtml(input){
+  const s = String(input ?? "");
+  return s.replace(/[&<>"']/g, (ch)=>({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  }[ch]));
+}
+
+function escapeAttr(input){
+  // For attribute values (also escapes backticks)
+  const s = String(input ?? "");
+  return s.replace(/[&<>"'`]/g, (ch)=>({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+    "`": "&#96;",
+  }[ch]));
+}
 function setThemeVars(settings){
   const root = document.documentElement;
   const map = {
@@ -101,4 +127,4 @@ async function guardAdmin(){
   }
 }
 
-window.App = { API, api, toast, loadPublicTheme, guardUser, guardAdmin, btnLoading, getUser, setUser, clearToken, setToken, setThemeVars };
+window.App = { API, api, toast, loadPublicTheme, guardUser, guardAdmin, btnLoading, getUser, setUser, clearToken, setToken, setThemeVars, escapeHtml, escapeAttr };
